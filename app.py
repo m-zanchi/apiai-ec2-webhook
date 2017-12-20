@@ -100,15 +100,15 @@ def makeWebhookResult(instance_action, result):
     if jroot is None:
         return {}
 
-    InstanceId = jroot.get('InstanceId')
+    InstanceId = jroot[0].get('InstanceId')
     if InstanceId is None:
         return {}
 
-    PreviousState = InstanceId.get('PreviousState')
+    PreviousState = jroot[0].get('PreviousState')
     if PreviousState is None:
         return {}
 
-    CurrentState = InstanceId.get('CurrentState')
+    CurrentState = jroot[0].get('CurrentState')
     if CurrentState is None:
         return {}
 
