@@ -46,10 +46,10 @@ def processRequest(req):
     result = manageEC2instance(instance_action,instance_id,"eu-west-1")
     print("EC2 Managed")
     print (result)
-    data = json.dumps(result)
-    print(json.dumps(result, indent=4))
+    data = json.loads(result)
+    print(json.loads(result, indent=4))
     print("Formatting Results")
-    res = makeWebhookResult(instance_action, result)
+    res = makeWebhookResult(instance_action, data)
     print("Results Formatted")
     return res
 
