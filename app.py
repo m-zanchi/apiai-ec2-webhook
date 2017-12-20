@@ -96,8 +96,6 @@ def makeWebhookResult(instance_action, result):
     if instance_action == 'ON':
         root = 'StartingInstances'
 
-    print(root)
-
     jroot = result.get(root)
     if jroot is None:
         return {}
@@ -113,6 +111,8 @@ def makeWebhookResult(instance_action, result):
     CurrentState = InstanceId.get('CurrentState')
     if CurrentState is None:
         return {}
+
+    print("Creating speech")
 
     speech = "The server was " + PreviousState.get('Name') + " and now is " + CurrentState.get('Name') + "."
 
