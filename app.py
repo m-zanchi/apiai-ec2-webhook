@@ -47,7 +47,7 @@ def processRequest(req):
     print("EC2 Managed")
     print (result)
     try:
-        data = json.loads(result)
+        data = json.dumps(result)
     except Exception as e:
         print(e)
     print (data)
