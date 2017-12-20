@@ -38,20 +38,20 @@ def processRequest(req):
         return {}
     result = req.get("result")
     parameters = result.get("parameters")
-    action = parameters.get("action")
+    instance_action = parameters.get("instance_action")
 
     instance_id = 'i-0a656796258609de1'
 
-    result = manageEC2instance(action,instance_id,'eu-west-1')
+    result = manageEC2instance(instance_action,instance_id,'eu-west-1')
     data = json.loads(result)
     res = makeWebhookResult(data)
     return res
 
-def manageEC2instance(action, instance_id, _region_name):
+def manageEC2instance(instance_action, instance_id, _region_name):
 
     ec2 = boto3.client('ec2', _region_name)
 
-    if action == 'ON':
+    if instance_action == 'ON':
         # Do a dryrun first to verify permissions
         try:
             ec2.start_instances(InstanceIds=[instance_id], DryRun=True)
