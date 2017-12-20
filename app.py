@@ -45,7 +45,9 @@ def processRequest(req):
     print ("Starting EC2 Management")
     result = manageEC2instance(instance_action,instance_id,"eu-west-1")
     print("EC2 Managed")
+    print (result)
     data = json.loads(result)
+    print (data)
     print("Formatting Results")
     res = makeWebhookResult(data)
     return res
@@ -60,9 +62,7 @@ def manageEC2instance(instance_action, instance_id, _region_name):
         try:
             ec2.start_instances(InstanceIds=[instance_id], DryRun=True)
         except Exception as e:
-            print(e)
             if 'DryRunOperation' not in str(e):
-                print(e)
                 raise
 
         # Dry run succeeded, run start_instances without dryrun
@@ -79,7 +79,6 @@ def manageEC2instance(instance_action, instance_id, _region_name):
             ec2.stop_instances(InstanceIds=[instance_id], DryRun=True)
         except ClientError as e:
             if 'DryRunOperation' not in str(e):
-                print(e)
                 raise
 
         # Dry run succeeded, call stop_instances witout dryrun
