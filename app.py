@@ -53,13 +53,14 @@ def processRequest(req):
 def manageEC2instance(instance_action, instance_id, _region_name):
 
     ec2 = boto3.client('ec2', _region_name)
-    print("boto3 client created")
+    print("boto3 client created for action=" + instance_action)
 
     if instance_action == 'ON':
         # Do a dryrun first to verify permissions
         try:
             ec2.start_instances(InstanceIds=[instance_id], DryRun=True)
-        except ClientError as e:
+        except Exception as e:
+            print(e)
             if 'DryRunOperation' not in str(e):
                 print(e)
                 raise
