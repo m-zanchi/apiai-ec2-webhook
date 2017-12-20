@@ -48,7 +48,7 @@ def processRequest(req):
     print (result)
     data = json.dumps(result)
     print("Formatting Results")
-    res = makeWebhookResult(data)
+    res = makeWebhookResult(result)
     return res
 
 def manageEC2instance(instance_action, instance_id, _region_name):
@@ -94,6 +94,7 @@ def makeWebhookResult(action, data):
     root = 'StoppingInstances'
     if action == 'ON':
         root = 'StartingInstances'
+
 
     jroot = data.get(root)
     if jroot is None:
