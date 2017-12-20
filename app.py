@@ -47,8 +47,10 @@ def processRequest(req):
     print("EC2 Managed")
     print (result)
     data = json.dumps(result)
+    print(json.dumps(result, indent=4))
     print("Formatting Results")
-    res = makeWebhookResult(instance_action , result)
+    res = makeWebhookResult(instance_action, result)
+    print("Results Formatted")
     return res
 
 def manageEC2instance(instance_action, instance_id, _region_name):
@@ -113,7 +115,7 @@ def makeWebhookResult(action, data):
         return {}
 
 
-    # print(json.dumps(item, indent=4))
+
 
     speech = "The server was " + PreviousState.get('Name') + " and now is " + CurrentState.get('Name') + "."
 
