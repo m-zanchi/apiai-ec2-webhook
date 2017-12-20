@@ -51,8 +51,9 @@ def manageEC2instance(instance_action, instance_id, _region_name):
 
     try:
         ec2 = boto3.client('ec2', _region_name)
-    except   Exception, e:
+    except Exception as e:
         print (e.message)
+
     if instance_action == 'ON':
         # Do a dryrun first to verify permissions
         try:
