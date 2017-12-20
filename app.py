@@ -34,16 +34,19 @@ def webhook():
     return r
 
 def processRequest(req):
+    print ("Getting Request")
     if req.get("result").get("action") != "EC2_Manage_Instance":
         return {}
     result = req.get("result")
     parameters = result.get("parameters")
     instance_action = parameters.get("instance_action")
 
-    instance_id = 'i-0a656796258609de1'
-
-    result = manageEC2instance(instance_action,instance_id,'eu-west-1')
+    instance_id = "i-0a656796258609de1"
+    print ("Starting EC2 Management")
+    result = manageEC2instance(instance_action,instance_id,"eu-west-1")
+    print("EC2 Managed")
     data = json.loads(result)
+    print("Formatting Results")
     res = makeWebhookResult(data)
     return res
 
