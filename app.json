@@ -1,0 +1,7 @@
+{
+  "name": "API.AI webhook",
+  "description": "API.AI EC2 webhook",
+  "repository": "https://github.com/m-zanchi/apiai-ec2-webhook",
+  "logo": "http://xvir.github.io/img/apiai.png",
+  "keywords": [ "api.ai", "natural language" ]
+}
