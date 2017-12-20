@@ -46,11 +46,7 @@ def processRequest(req):
     result = manageEC2instance(instance_action,instance_id,"eu-west-1")
     print("EC2 Managed")
     print (result)
-    try:
-        data = json.dumps(result)
-    except Exception as e:
-        print(e)
-    print (data)
+    data = json.dumps(result)
     print("Formatting Results")
     res = makeWebhookResult(data)
     return res
@@ -99,7 +95,7 @@ def makeWebhookResult(action, data):
     if action == 'ON':
         root = 'StartingInstances'
 
-    jroot = data.get('root')
+    jroot = data.get(root)
     if jroot is None:
         return {}
 
