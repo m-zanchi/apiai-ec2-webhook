@@ -46,10 +46,9 @@ def processRequest(req):
     result = manageEC2instance(instance_action,instance_id,"eu-west-1")
     print("EC2 Managed")
     print (result)
-    data = json.loads(result)
-    print(json.loads(result, indent=4))
+    print(json.dumps(result, indent=4))
     print("Formatting Results")
-    res = makeWebhookResult(instance_action, data)
+    res = makeWebhookResult(instance_action, result)
     print("Results Formatted")
     return res
 
@@ -91,14 +90,15 @@ def manageEC2instance(instance_action, instance_id, _region_name):
     return
 
 
-def makeWebhookResult(action, data):
+def makeWebhookResult(instance_action, result):
 
     root = 'StoppingInstances'
-    if action == 'ON':
+    if instance_action == 'ON':
         root = 'StartingInstances'
 
+    print(root)
 
-    jroot = data.get(root)
+    jroot = result.get(root)
     if jroot is None:
         return {}
 
@@ -113,9 +113,6 @@ def makeWebhookResult(action, data):
     CurrentState = InstanceId.get('CurrentState')
     if CurrentState is None:
         return {}
-
-
-
 
     speech = "The server was " + PreviousState.get('Name') + " and now is " + CurrentState.get('Name') + "."
 
